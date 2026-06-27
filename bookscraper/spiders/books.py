@@ -1,5 +1,5 @@
 import random
-
+from bookscraper.items import BookItem
 import scrapy
 
 
@@ -94,13 +94,13 @@ class BooksSpider(scrapy.Spider):
         price = product.xpath('./p[@class="price_color"]/text()').get()
         availability = "".join(product.xpath('./p[contains(@class,"availability")]//text()').getall()).strip()
 
-        item = {
-            "category": category,
-            "title": title,
-            "price": price,
-            "availability": availability,
-            "image_url": image_url,
-            "url": response.url,
-        }
+        item = BookItem()
+
+        item["title"] = title
+        item["price"] = price
+        item["availability"] = availability
+        item["product_url"] = response.url
+        item["image_url"] = image_url
+        item["category"] = category
 
         yield item
