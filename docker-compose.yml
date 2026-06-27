@@ -3,4 +3,4 @@ services:
     build: .
     container_name: bookscraper
     volumes:
-      - .:/app
+      - ./extracted_data:/app/extracted_data
