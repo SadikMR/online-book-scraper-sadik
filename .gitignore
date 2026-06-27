@@ -26,5 +26,17 @@ Thumbs.db
 # Output
 extracted_data/
 
-# Db
+# Database
 *.db
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Scrapyd
+eggs/
+logs/
+items/
+dbs/
+twistd.pid

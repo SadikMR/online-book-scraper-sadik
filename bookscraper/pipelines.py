@@ -6,9 +6,8 @@ class SQLitePipeline:
         self.connection = sqlite3.connect("books.db")
         self.cursor = self.connection.cursor()
 
-        self.cursor.execute("""
-            CREATE TABLE IF NOT EXISTS books (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS books 
+                (id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT,
                 price REAL,
                 availability BOOLEAN,
@@ -16,7 +15,7 @@ class SQLitePipeline:
                 image_url TEXT,
                 category TEXT
             )
-        """)
+            """)
 
         self.connection.commit()
 

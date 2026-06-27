@@ -8,4 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["scrapy", "crawl", "books"]
+EXPOSE 6800
+
+CMD ["scrapyd"]

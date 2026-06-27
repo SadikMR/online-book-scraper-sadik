@@ -1,6 +1,10 @@
 services:
-  scraper:
+  scrapyd:
     build: .
-    container_name: bookscraper
+    container_name: scrapyd-server
+
+    ports:
+      - "6800:6800"
+
     volumes:
-      - ./extracted_data:/app/extracted_data
+      - .:/app
