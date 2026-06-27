@@ -89,16 +89,16 @@ DOWNLOAD_DELAY = 1
 FEED_EXPORT_ENCODING = "utf-8"
 
 FEEDS = {
-    "books.json": {
+    "extracted_data/books.json": {
         "format": "json",
         "indent": 4,
         "overwrite": True,
     },
-    "books.csv": {
+    "extracted_data/books.csv": {
         "format": "csv",
         "overwrite": True,
     },
-    "books.xml": {
+    "extracted_data/books.xml": {
         "format": "xml",
         "overwrite": True,
     },
