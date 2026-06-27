@@ -84,4 +84,26 @@ DOWNLOAD_DELAY = 1
 #HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
 
 # Set settings whose default value is deprecated to a future-proof value
+
+
 FEED_EXPORT_ENCODING = "utf-8"
+
+FEEDS = {
+    "extracted_data/books.json": {
+        "format": "json",
+        "indent": 4,
+        "overwrite": True,
+    },
+    "extracted_data/books.csv": {
+        "format": "csv",
+        "overwrite": True,
+    },
+    "extracted_data/books.xml": {
+        "format": "xml",
+        "overwrite": True,
+    },
+}
+
+ITEM_PIPELINES = {
+    "bookscraper.pipelines.SQLitePipeline": 300,
+}

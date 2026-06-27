@@ -1,5 +1,5 @@
 import random
-
+from bookscraper.items import BookItem
 import scrapy
 
 
@@ -10,15 +10,13 @@ class BooksSpider(scrapy.Spider):
 
     def parse(self, response):
         # Get all category elements
-        categories = response.xpath(
-            '//div[@class="side_categories"]/ul/li/ul/li/a'
-        )
+        categories = response.css('.side_categories ul li ul li a')
 
         category_data = []
 
         # Extract category name and relative URL
         for category in categories:
-            category_name = category.xpath('./text()').get().strip()
+            category_name = category.css('::text').get().strip()
             category_url = category.xpath('./@href').get()
 
             category_data.append({
@@ -46,7 +44,7 @@ class BooksSpider(scrapy.Spider):
         books = response.meta["books"]
 
         # Collect books from current page
-        current_books = response.xpath('//article//h3/a')
+        current_books = response.css('article h3 a')
 
         # Appending new books
         for book in current_books:
@@ -89,18 +87,18 @@ class BooksSpider(scrapy.Spider):
         category = response.meta["category"]
         image_url = response.urljoin( response.xpath('//div[@class="item active"]/img/@src').get())
 
-        product = response.xpath('//div[contains(@class,"product_main")]')
-        title = product.xpath('./h1/text()').get().strip()
-        price = product.xpath('./p[@class="price_color"]/text()').get()
+        product = response.css('.product_main')
+        title = product.css('h1::text').get().strip()
+        price = product.css('.price_color::text').get()
         availability = "".join(product.xpath('./p[contains(@class,"availability")]//text()').getall()).strip()
 
-        item = {
-            "category": category,
-            "title": title,
-            "price": price,
-            "availability": availability,
-            "image_url": image_url,
-            "url": response.url,
-        }
+        item = BookItem()
+
+        item["title"] = title
+        item["price"] = price
+        item["availability"] = availability
+        item["product_url"] = response.url
+        item["image_url"] = image_url
+        item["category"] = category
 
         yield item
